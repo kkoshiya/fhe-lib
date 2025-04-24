@@ -2,14 +2,11 @@ use anchor_lang::solana_program::pubkey::Pubkey;
 use anchor_lang::prelude::*;
 
 #[account]
+#[derive(InitSpace)]
 pub struct CipherText {
     pub key: [u8; 32],
     pub owner: Pubkey,
     pub bit_length: u16,
-}
-
-impl CipherText {
-    pub const Space: usize = 8 + 32 + 32 + 2;
 }
 
 #[derive(Accounts)]
@@ -18,8 +15,8 @@ pub struct CreateStorage<'info>{
     #[account(
         init,
         payer = signer,
-        space = CipherText::Space,
-        seeds = [b"fhe_storage"],
+        space = 8 + CipherText::INIT_SPACE,
+        seeds = [b"fhe_storage", key.as_ref()],
         bump
     )]
     pub storage: Account<'info, CipherText>,
