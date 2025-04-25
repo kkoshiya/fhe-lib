@@ -10,7 +10,7 @@ declare_id!("Fuj5qpvT66C7pz4fvyLDV6d8YCUS9idJH2i66Qj5vedh");
 pub mod fhe_lib {
     use super::*;
 
-    pub fn asFHE8(ctx: Context<CreateStorage>, key: [u8; 32]) -> Result<CipherText> {
+    pub fn as_fhe8(ctx: Context<CreateStorage>, key: [u8; 32]) -> Result<CipherText> {
         let storage = &mut ctx.accounts.storage;
         storage.key = key;
         storage.owner = ctx.accounts.signer.key();
